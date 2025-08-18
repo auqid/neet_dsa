@@ -8,8 +8,10 @@ class ListNode {
 
 class DoublyLinkedList {
   constructor() {
+    // use a dummy head and tail to avoid checks
     this.head = new ListNode(-1);
     this.tail = new ListNode(-1);
+
     this.head.next = this.tail;
     this.tail.prev = this.head;
   }
