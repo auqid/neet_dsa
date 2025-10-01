@@ -13,4 +13,48 @@ class Heap {
       i = Math.floor(i / 2);
     }
   }
+  pop() {
+    if (this.heap.length === 1) {
+      return null;
+    }
+    if (this.heap.length === 2) {
+      return this.heap.pop();
+    }
+    const res = this.heap[1];
+    this.heap[1] = this.heap.pop();
+    let i = 1;
+    //percolate down
+    while (2 * i < this.heap.length) {
+      if (
+        2 * i + 1 < this.heap.length &&
+        this.heap[2 * i + 1] < this.heap[2 * i] &&
+        this.heap[i] > this.heap[2 * i + 1]
+      ) {
+        //swap right child
+        let temp = this.heap[i];
+        this.heap[i] = this.heap[2 * i + 1];
+        this.heap[2 * i + 1] = temp;
+        i = 2 * i + 1;
+      } else if (this.heap[i] > this.heap[2 * i]) {
+        //swap left child
+        let temp = this.heap[i];
+        this.heap[i] = this.heap[2 * i];
+        this.heap[2 * i] = temp;
+        i = 2 * i;
+      } else {
+        break;
+      }
+    }
+    return res;
+  }
 }
+
+const heap = new Heap();
+heap.push(3);
+heap.push(1);
+heap.push(5);
+heap.push(2);
+heap.pop();
+heap.push(4);
+
+console.log(heap); // Heap { heap: [ 0, 2, 3, 5, 4 ] }
